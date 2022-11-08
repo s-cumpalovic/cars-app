@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { RadioButton } from "./RadioButton";
 
 function generateArrayOfYears() {
@@ -12,7 +12,12 @@ function generateArrayOfYears() {
   return years;
 }
 
-export default function CreateCarForm({ newCar, setNewCar, onCreateNewCar }) {
+export default function CreateCarForm({
+  newCar,
+  setNewCar,
+  onCreateNewCar,
+  onResetForm,
+}) {
   return (
     <div className="form-group">
       <form onSubmit={onCreateNewCar}>
@@ -97,7 +102,7 @@ export default function CreateCarForm({ newCar, setNewCar, onCreateNewCar }) {
           label="diesel"
           value="diesel"
           state={newCar.engine}
-          onChange={( value ) =>
+          onChange={(value) =>
             setNewCar({
               ...newCar,
               engine: value,
@@ -108,7 +113,7 @@ export default function CreateCarForm({ newCar, setNewCar, onCreateNewCar }) {
           label="petrol"
           value="petrol"
           state={newCar.engine}
-          onChange={( value ) =>
+          onChange={(value) =>
             setNewCar({
               ...newCar,
               engine: value,
@@ -119,7 +124,7 @@ export default function CreateCarForm({ newCar, setNewCar, onCreateNewCar }) {
           label="electric"
           value="electric"
           state={newCar.engine}
-          onChange={( value ) =>
+          onChange={(value) =>
             setNewCar({
               ...newCar,
               engine: value,
@@ -130,16 +135,18 @@ export default function CreateCarForm({ newCar, setNewCar, onCreateNewCar }) {
           label="hybrid"
           value="hybrid"
           state={newCar.engine}
-          onChange={( value ) =>
+          onChange={(value) =>
             setNewCar({
               ...newCar,
               engine: value,
             })
           }
         />
-
         <button type="submit" className="btn btn-primary">
           Add new car
+        </button>
+        <button onClick={onResetForm} type="button" className="btn btn-warning">
+          Reset form
         </button>
       </form>
     </div>

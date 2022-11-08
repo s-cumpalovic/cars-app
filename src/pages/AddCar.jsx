@@ -3,20 +3,23 @@ import CreateCarForm from "../components/CreateCarForm";
 import CarsService from "../services/CarsService";
 import { useHistory } from "react-router-dom";
 
+const defaultValue = {
+  brand: "",
+  model: "",
+  year: "",
+  maxSpeed: "",
+  numberOfDoors: "",
+  isAutomatic: false,
+  engine: "",
+}
+
 export default function AddCar() {
   const history = useHistory();
-  const [newCar, setNewCar] = useState({
-    brand: "",
-    model: "",
-    year: "",
-    maxSpeed: "",
-    numberOfDoors: "",
-    isAutomatic: false,
-    engine: "",
-  });
+  const [newCar, setNewCar] = useState(defaultValue);
 
   const handleCreateNewCar = async (e) => {
     e.preventDefault();
+    e.target.reset();
 
     const newCarResponse = await CarsService.add(newCar);
 
@@ -25,12 +28,19 @@ export default function AddCar() {
     }
   };
 
+  const handleResetForm = () => {
+    setNewCar(defaultValue);
+  }
+
+
+
   return (
     <div>
       <CreateCarForm
         newCar={newCar}
         setNewCar={setNewCar}
         onCreateNewCar={handleCreateNewCar}
+        onResetForm={handleResetForm}
       />
     </div>
   );
