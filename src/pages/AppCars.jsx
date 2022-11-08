@@ -2,27 +2,16 @@ import React, { useEffect, useState } from "react";
 import CarsService from "../services/CarsService";
 
 export default function AppCars() {
-  const [cars, setCars] = useState([
-    {
-      brand: "tesla",
-      model: "string",
-      year: 2010,
-      maxSpeed: 300,
-      isAutomatic: true,
-      engine: "string",
-      numberOfDoors: 4,
-      id: 1,
-    },
-  ]);
+  const [cars, setCars] = useState();
 
   const handleCarsData = async () => {
-    const data = await CarsService.getAll();
-    setCars(data);
+    const carsData = await CarsService.getAll();
+    setCars(carsData);
   };
 
-  // useEffect(() => {
-  //   handleCarsData();
-  // }, []);
+  useEffect(() => {
+    handleCarsData()
+  }, [])
 
   return (
     <div>

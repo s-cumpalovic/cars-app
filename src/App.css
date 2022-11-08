@@ -7,6 +7,23 @@
   pointer-events: none;
 }
 
+.form-group {
+  display: inline-block;
+  padding: 10px;
+}
+
+input {
+  display: flex;
+  padding: 10px;
+}
+
+select {
+  display: flex;
+  padding: 10px;
+}
+
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
