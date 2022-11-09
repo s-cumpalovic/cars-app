@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CarsService from "../services/CarsService";
 import { Link } from "react-router-dom";
 import SingleCar from "../components/SingleCar";
+import DeleteButton from "../components/DeleteButton";
 
 export default function AppCars() {
   const [cars, setCars] = useState();
@@ -40,7 +41,7 @@ export default function AppCars() {
             <Link to={`/edit/${car.id}`}>
               <button className="btn btn-warning">Edit</button>
             </Link>
-            <button onClick={() => handleDeleteCar(car.id)}>Delete</button>
+            <DeleteButton onClickDeleteButton={() => handleDeleteCar(car.id)} />
           </div>
         ))}
     </div>
