@@ -24,6 +24,12 @@ class CarsService {
 
     return response;
   }
+
+  async delete(id) {
+    const response = await axiosObj.delete(`/cars/${id}`);
+
+    return response.data;
+  }
 }
 
 export default new CarsService();

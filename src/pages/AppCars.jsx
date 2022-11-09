@@ -10,6 +10,12 @@ export default function AppCars() {
     setCars(carsData);
   };
 
+  const handleDeleteCar = async (id) => {
+    const deleteCarData = await CarsService.delete(id);
+    const newCarsData = await CarsService.getAll();
+    setCars(newCarsData);
+  };
+
   useEffect(() => {
     handleCarsData();
   }, []);
@@ -33,6 +39,7 @@ export default function AppCars() {
             <Link to={`/edit/${car.id}`}>
               <button className="btn btn-warning">Edit</button>
             </Link>
+            <button onClick={() => handleDeleteCar(car.id)}>Delete</button>
           </div>
         ))}
     </div>
