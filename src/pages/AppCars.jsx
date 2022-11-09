@@ -12,8 +12,9 @@ export default function AppCars() {
 
   const handleDeleteCar = async (id) => {
     const deleteCarData = await CarsService.delete(id);
-    const newCarsData = await CarsService.getAll();
-    setCars(newCarsData);
+    if (deleteCarData.status === 200) {
+      setCars([...cars.filter((car) => car.id !== id)]);
+    }
   };
 
   useEffect(() => {

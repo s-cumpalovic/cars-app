@@ -28,7 +28,7 @@ class CarsService {
   async delete(id) {
     const response = await axiosObj.delete(`/cars/${id}`);
 
-    return response.data;
+    return response;
   }
 }
 
