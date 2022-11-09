@@ -17,6 +17,7 @@ export default function CreateCarForm({
   setNewCar,
   onCreateNewCar,
   onResetForm,
+  onPreviewCar,
 }) {
   return (
     <div className="form-group">
@@ -144,6 +145,13 @@ export default function CreateCarForm({
         />
         <button type="submit" className="btn btn-primary">
           Add new car
+        </button>
+        <button
+          onClick={() => onPreviewCar(newCar)}
+          type="button"
+          className="btn btn-warning"
+        >
+          Preview car
         </button>
         <button onClick={onResetForm} type="button" className="btn btn-warning">
           Reset form

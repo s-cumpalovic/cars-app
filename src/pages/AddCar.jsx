@@ -11,7 +11,7 @@ const defaultValue = {
   numberOfDoors: "",
   isAutomatic: false,
   engine: "",
-}
+};
 
 export default function AddCar() {
   const history = useHistory();
@@ -30,9 +30,12 @@ export default function AddCar() {
 
   const handleResetForm = () => {
     setNewCar(defaultValue);
-  }
+  };
 
-
+  const handlePreviewCar = (carData) => {
+    const preview = JSON.stringify(carData, null, 2);
+    alert(preview);
+  };
 
   return (
     <div>
@@ -41,6 +44,7 @@ export default function AddCar() {
         setNewCar={setNewCar}
         onCreateNewCar={handleCreateNewCar}
         onResetForm={handleResetForm}
+        onPreviewCar={handlePreviewCar}
       />
     </div>
   );
