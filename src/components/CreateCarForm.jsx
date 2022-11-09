@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { RadioButton } from "./RadioButton";
 
 function generateArrayOfYears() {
@@ -18,8 +19,9 @@ export default function CreateCarForm({
   onCreateNewCar,
   onResetForm,
   onPreviewCar,
+  onEditCar,
 }) {
-  console.log(<input />)
+  const { id } = useParams();
   return (
     <div className="form-group">
       <form onSubmit={onCreateNewCar}>
@@ -28,7 +30,7 @@ export default function CreateCarForm({
           required
           type="text"
           value={newCar.brand}
-          minLength='2'
+          minLength="2"
           onChange={({ target }) =>
             setNewCar({
               ...newCar,
@@ -41,7 +43,7 @@ export default function CreateCarForm({
           required
           type="text"
           value={newCar.model}
-          minLength='2'
+          minLength="2"
           onChange={({ target }) =>
             setNewCar({
               ...newCar,
@@ -83,7 +85,7 @@ export default function CreateCarForm({
             })
           }
         >
-          <option disabled={true} value='Select the year'></option>
+          <option disabled={true} value="Select the year"></option>
           {generateArrayOfYears().map((year, index) => (
             <option key={index}>{year}</option>
           ))}
@@ -147,9 +149,15 @@ export default function CreateCarForm({
             })
           }
         />
-        <button type="submit" className="btn btn-primary">
-          Add new car
-        </button>
+        {!id ? (
+          <button type="submit" className="btn btn-primary">
+            Add new car
+          </button>
+        ) : (
+          <button onClick={onEditCar} type="submit" className="btn btn-warning">
+            Edit car
+          </button>
+        )}
         <button
           onClick={() => onPreviewCar(newCar)}
           type="button"
