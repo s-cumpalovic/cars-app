@@ -19,6 +19,7 @@ export default function CreateCarForm({
   onResetForm,
   onPreviewCar,
 }) {
+  console.log(<input />)
   return (
     <div className="form-group">
       <form onSubmit={onCreateNewCar}>
@@ -27,6 +28,7 @@ export default function CreateCarForm({
           required
           type="text"
           value={newCar.brand}
+          minLength='2'
           onChange={({ target }) =>
             setNewCar({
               ...newCar,
@@ -39,6 +41,7 @@ export default function CreateCarForm({
           required
           type="text"
           value={newCar.model}
+          minLength='2'
           onChange={({ target }) =>
             setNewCar({
               ...newCar,
@@ -48,7 +51,6 @@ export default function CreateCarForm({
         />
         <input
           placeholder="max-speed"
-          required
           type="number"
           value={newCar.maxSpeed}
           onChange={({ target }) =>
@@ -72,6 +74,7 @@ export default function CreateCarForm({
         />
         <label>Year of production</label>
         <select
+          required
           value={newCar.year}
           onChange={({ target }) =>
             setNewCar({
@@ -80,6 +83,7 @@ export default function CreateCarForm({
             })
           }
         >
+          <option disabled={true} value='Select the year'></option>
           {generateArrayOfYears().map((year, index) => (
             <option key={index}>{year}</option>
           ))}
