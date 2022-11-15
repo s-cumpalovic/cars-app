@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCarRequest;
 use App\Models\Cars;
 use Illuminate\Http\Request;
 
@@ -36,15 +37,24 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'brand' => 'required|min:2',
+            'model' => 'required|min:2',
+            'year' => 'required',
+            'max_speed' => 'min:20|max:300',
+            'is_automatic' => 'required',
+            'engine' => 'required',
+            'number_of_doors' =>  'required|min:2|max:5'
+        ]);
 
         $cars = new Cars();
-        $cars->brand = $request['brand'];
-        $cars->model = $request['model'];
-        $cars->year = $request['year'];
-        $cars->max_speed = $request['max_speed'];
-        $cars->is_automatic = $request['is_automatic'];
-        $cars->engine = $request['engine'];
-        $cars->number_of_doors = $request['number_of_doors'];
+        $cars->brand = $validated['brand'];
+        $cars->model = $validated['model'];
+        $cars->year = $validated['year'];
+        $cars->max_speed = $validated['max_speed'];
+        $cars->is_automatic = $validated['is_automatic'];
+        $cars->engine = $validated['engine'];
+        $cars->number_of_doors = $validated['number_of_doors'];
         $cars->save();
         return $cars;
     }
@@ -81,14 +91,24 @@ class CarsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'brand' => 'required|min:2',
+            'model' => 'required|min:2',
+            'year' => 'required',
+            'max_speed' => 'min:20|max:300',
+            'is_automatic' => 'required',
+            'engine' => 'required',
+            'number_of_doors' =>  'required|min:2|max:5'
+        ]);
+
         $car = Cars::find($id);
-        $car->brand = $request['brand'];
-        $car->model = $request['model'];
-        $car->year = $request['year'];
-        $car->max_speed = $request['max_speed'];
-        $car->is_automatic = $request['is_automatic'];
-        $car->engine = $request['engine'];
-        $car->number_of_doors = $request['number_of_doors'];
+        $car->brand = $validated['brand'];
+        $car->model = $validated['model'];
+        $car->year = $validated['year'];
+        $car->max_speed = $validated['max_speed'];
+        $car->is_automatic = $validated['is_automatic'];
+        $car->engine = $validated['engine'];
+        $car->number_of_doors = $validated['number_of_doors'];
         $car->save();
         return $car;
     }
