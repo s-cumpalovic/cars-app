@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateCarRequest;
 use App\Models\Cars;
 use Illuminate\Http\Request;
 
@@ -15,9 +14,19 @@ class CarsController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = $request->per_page ?? 5;
-        $cars = Cars::paginate($perPage);
-        return $cars;
+        $perPage = $request->per_page ?? 10;
+        $query = Cars::query();
+
+        if ($request->brand) {
+            $brand = $request->brand;
+            Cars::scopeSearchByBrand($query, $brand);
+        }
+        if ($request->model) {
+            $model = $request->model;
+            Cars::scopeSearchByModel($query, $model);
+        }
+
+        return $query->paginate($perPage);
     }
 
     /**
