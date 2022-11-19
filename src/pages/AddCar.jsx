@@ -27,8 +27,8 @@ export default function AddCar() {
     e.preventDefault();
     e.target.reset();
     
-    const response = await CarsService.add(newCar);
-    if (response.status === 200) {
+    const response = await CarsService.create(newCar);
+    if (response.status === 201) {
       setNewCar(response.data);
       history.push("/cars");
     }
