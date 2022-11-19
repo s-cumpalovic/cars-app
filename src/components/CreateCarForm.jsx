@@ -54,11 +54,11 @@ export default function CreateCarForm({
         <input
           placeholder="max-speed"
           type="number"
-          value={newCar.maxSpeed}
+          value={newCar.max_speed}
           onChange={({ target }) =>
             setNewCar({
               ...newCar,
-              maxSpeed: target.value,
+              max_speed: target.value,
             })
           }
         />
@@ -66,11 +66,11 @@ export default function CreateCarForm({
           placeholder="number of doors"
           required
           type="number"
-          value={newCar.numberOfDoors}
+          value={newCar.number_of_doors}
           onChange={({ target }) =>
             setNewCar({
               ...newCar,
-              numberOfDoors: target.value,
+              number_of_doors: target.value,
             })
           }
         />
@@ -87,7 +87,9 @@ export default function CreateCarForm({
         >
           <option disabled={true} value="Select the year"></option>
           {generateArrayOfYears().map((year, index) => (
-            <option key={index}>{year}</option>
+            <option type="number" key={index}>
+              {year}
+            </option>
           ))}
         </select>
         <label>Is it automatic?</label>
@@ -97,11 +99,11 @@ export default function CreateCarForm({
             e.target.checked
               ? setNewCar({
                   ...newCar,
-                  isAutomatic: true,
+                  is_automatic: 1,
                 })
               : setNewCar({
                   ...newCar,
-                  isAutomatic: false,
+                  is_automatic: 0,
                 })
           }
         />

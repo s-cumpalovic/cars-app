@@ -5,10 +5,10 @@ export default function SingleCar({
   brand,
   model,
   year,
-  maxSpeed,
-  isAutomatic,
+  max_speed,
+  is_automatic,
   engine,
-  numberOfDoors,
+  number_of_doors,
 }) {
   return (
     <div className="cars-container" key={id}>
@@ -23,16 +23,16 @@ export default function SingleCar({
         Car year: <strong>{year}</strong>
       </p>
       <p>
-        Car maxSpeed: <strong>{maxSpeed}</strong>
+        Car max_speed: <strong>{max_speed}</strong>
       </p>
       <p>
-        Car isAutomatic: <strong>{isAutomatic}</strong>
+        Car is_automatic: <strong>{is_automatic}</strong>
       </p>
       <p>
         Car engine: <strong>{engine}</strong>
       </p>
       <p>
-        Car numberOfDoors: <strong>{numberOfDoors}</strong>
+        Car number_of_doors: <strong>{number_of_doors}</strong>
       </p>
       <hr />
     </div>

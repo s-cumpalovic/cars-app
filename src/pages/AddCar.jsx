@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import CreateCarForm from "../components/CreateCarForm";
 import CarsService from "../services/CarsService";
 import { useHistory, useParams } from "react-router-dom";
+import { useIsDiesel } from "../hooks/useIsDiesel";
 
 const defaultValue = {
   brand: "",
   model: "",
   year: "",
-  maxSpeed: "",
-  numberOfDoors: "",
-  isAutomatic: false,
+  max_speed: "",
+  number_of_doors: "",
+  is_automatic: false,
   engine: "",
 };
 
@@ -25,10 +26,10 @@ export default function AddCar() {
   const handleCreateNewCar = async (e) => {
     e.preventDefault();
     e.target.reset();
-
-    const newCarResponse = await CarsService.add(newCar);
-
-    if (newCarResponse.status === 200) {
+    
+    const response = await CarsService.add(newCar);
+    if (response.status === 200) {
+      setNewCar(response.data);
       history.push("/cars");
     }
   };
@@ -44,14 +45,16 @@ export default function AddCar() {
 
   const handleSingleCarData = async () => {
     if (id) {
-      const carsData = await CarsService.get(id);
-      setNewCar(carsData);
+      const response = await CarsService.get(id);
+      if(response.status === 200) {
+        setNewCar(response.data);
+      }
     }
   };
 
   const handleEditCar = async () => {
-    const editCarResponse = await CarsService.edit(id, newCar);
-    if (editCarResponse.status === 200) {
+    const response = await CarsService.edit(id, newCar);
+    if (response.status === 200) {
       history.push("/cars");
       alert("Car updated !");
     }

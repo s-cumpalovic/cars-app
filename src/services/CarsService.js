@@ -4,7 +4,7 @@ class CarsService {
   async getAll() {
     const response = await axiosObj.get("/cars");
 
-    return response.data;
+    return response;
   }
 
   async add(obj) {
@@ -16,11 +16,11 @@ class CarsService {
   async get(id) {
     const response = await axiosObj.get(`/cars/${id}`);
 
-    return response.data;
+    return response;
   }
 
   async edit(id, car) {
-    const response = await axiosObj.patch(`/cars/${id}`, car);
+    const response = await axiosObj.put(`/cars/${id}`, car);
 
     return response;
   }
