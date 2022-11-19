@@ -9,12 +9,23 @@ class Cars extends Model
 {
     use HasFactory;
 
-    public static function scopeSearchByBrand($query, $brand)
+    protected $fillable = [
+        'brand',
+        'model',
+        'year',
+        'max_speed',
+        'is_automatic',
+        'engine',
+        'number_of_doors',
+    ];
+
+    public function scopeSearchByBrand($query, $brandParam)
     {
-        return $query->where('brand', 'LIKE', '%' . $brand . '%');
+        return $query->where('brand', 'LIKE', '%' . $brandParam . '%');
+           
     }
 
-    public static function scopeSearchByModel($query, $model)
+    public function scopeSearchByModel($query, $model)
     {
         return $query->where('model', 'LIKE', '%' . $model . '%');
     }

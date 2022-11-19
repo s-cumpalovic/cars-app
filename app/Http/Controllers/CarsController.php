@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCarRequest;
 use App\Models\Cars;
 use Illuminate\Http\Request;
 
@@ -14,19 +15,14 @@ class CarsController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = $request->per_page ?? 10;
-        $query = Cars::query();
+        /* 2. JAKO KUL Nacin */
 
-        if ($request->brand) {
-            $brand = $request->brand;
-            Cars::scopeSearchByBrand($query, $brand);
-        }
-        if ($request->model) {
-            $model = $request->model;
-            Cars::scopeSearchByModel($query, $model);
-        }
+        $perPage = $request->query('per_page', 5);
 
-        return $query->paginate($perPage);
+        $brand = $request->query('brand', '');
+        $model = $request->query('model', '');
+
+        return Cars::query()->SearchByBrand($brand)->SearchByModel($model)->get();
     }
 
     /**
@@ -45,17 +41,9 @@ class CarsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCarRequest $request)
     {
-        $validated = $request->validate([
-            'brand' => 'required|min:2',
-            'model' => 'required|min:2',
-            'year' => 'required',
-            'max_speed' => 'min:20|max:300',
-            'is_automatic' => 'required',
-            'engine' => 'required',
-            'number_of_doors' =>  'required|min:2|max:5'
-        ]);
+        $validated = $request->validated();
 
         $cars = new Cars();
         $cars->brand = $validated['brand'];
@@ -99,17 +87,9 @@ class CarsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateCarRequest $request, $id)
     {
-        $validated = $request->validate([
-            'brand' => 'required|min:2',
-            'model' => 'required|min:2',
-            'year' => 'required',
-            'max_speed' => 'min:20|max:300',
-            'is_automatic' => 'required',
-            'engine' => 'required',
-            'number_of_doors' =>  'required|min:2|max:5'
-        ]);
+        $validated = $request->validated();
 
         $car = Cars::find($id);
         $car->brand = $validated['brand'];
