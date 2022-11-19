@@ -1,9 +1,12 @@
-import { axiosObj } from "./AxiosService";
+import { httpService } from "./HttpService";
 import CarsErrors from "./ErrorHandlers/CarsErrors";
 
 class CarsService {
+  constructor() {
+    this.axiosObj = httpService.axiosObj;
+  }
   async getAll() {
-    const response = await axiosObj
+    const response = await this.axiosObj
       .get("/cars")
       .catch((error) => CarsErrors(error));
 
@@ -11,7 +14,7 @@ class CarsService {
   }
 
   async create(obj) {
-    const response = await axiosObj
+    const response = await this.axiosObj
       .post("/cars", obj)
       .catch((error) => CarsErrors(error));
 
@@ -19,7 +22,7 @@ class CarsService {
   }
 
   async get(id) {
-    const response = await axiosObj
+    const response = await this.axiosObj
       .get(`/cars/${id}`)
       .catch((error) => CarsErrors(error));
 
@@ -27,7 +30,7 @@ class CarsService {
   }
 
   async edit(id, car) {
-    const response = await axiosObj
+    const response = await this.axiosObj
       .put(`/cars/${id}`, car)
       .catch((error) => CarsErrors(error));
 
@@ -35,7 +38,7 @@ class CarsService {
   }
 
   async delete(id) {
-    const response = await axiosObj
+    const response = await this.axiosObj
       .delete(`/cars/${id}`)
       .catch((error) => CarsErrors(error));
 

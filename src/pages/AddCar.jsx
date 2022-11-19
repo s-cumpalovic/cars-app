@@ -26,7 +26,7 @@ export default function AddCar() {
   const handleCreateNewCar = async (e) => {
     e.preventDefault();
     e.target.reset();
-    
+
     const response = await CarsService.create(newCar);
     if (response.status === 201) {
       setNewCar(response.data);
@@ -46,7 +46,7 @@ export default function AddCar() {
   const handleSingleCarData = async () => {
     if (id) {
       const response = await CarsService.get(id);
-      if(response.status === 200) {
+      if (response.status === 200) {
         setNewCar(response.data);
       }
     }
