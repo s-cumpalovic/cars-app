@@ -2,6 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import React from "react";
 import AppCars from "./pages/AppCars";
 import AddCar from "./pages/AddCar";
+import AppLogin from "./pages/AppLogin";
 
 export default function Router() {
   return (
@@ -11,6 +12,9 @@ export default function Router() {
       </Route>
       <Route path="/add">
         <AddCar />
+      </Route>
+      <Route path="/login">
+        <AppLogin />
       </Route>
       <Route path="/edit/:id">
         <AddCar />

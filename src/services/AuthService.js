@@ -16,11 +16,18 @@ class AuthService {
     }
   }
 
+  getToken() {
+    let tokenJSON = localStorage.getItem('token')
+    const token = JSON.parse(tokenJSON);
+    return token
+  }
+
   async login(data) {
     let response = await httpService.axiosObj.post("/login", data);
     if (response.data) {
       localStorage.setItem("token", response.data.authorisation.token);
       this.setAxiosAuthorizationHeader(response.data.authorisation.token);
+      return response;
     }
   }
 }
