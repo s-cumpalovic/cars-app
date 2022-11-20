@@ -4,6 +4,12 @@ class AuthService {
   constructor() {
     this.axiosObj = httpService.axiosObj;
     this.setAxiosAuthorizationHeader();
+
+    this.axiosObj.interceptors.request.use(function (config) {
+      let token = localStorage.getItem("token");
+      config.headers.Authorization = token ? `Bearer ${token}` : "";
+      return config;
+    });
   }
 
   setAxiosAuthorizationHeader(tokenParam = null) {
@@ -17,9 +23,9 @@ class AuthService {
   }
 
   getToken() {
-    let tokenJSON = localStorage.getItem('token')
+    let tokenJSON = localStorage.getItem("token");
     const token = JSON.parse(tokenJSON);
-    return token
+    return token;
   }
 
   async login(data) {
@@ -28,6 +34,14 @@ class AuthService {
       localStorage.setItem("token", response.data.authorisation.token);
       this.setAxiosAuthorizationHeader(response.data.authorisation.token);
       return response;
+    }
+  }
+
+  async logout() {
+    let response = await httpService.axiosObj.post("/logout");
+    if (response.data) {
+      localStorage.removeItem('token');
+      return response.data;
     }
   }
 }

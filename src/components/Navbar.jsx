@@ -1,8 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import { authService } from "../services/AuthService";
 export default function Navbar() {
+  const history = useHistory();
+
   const token = localStorage.getItem("token");
+
+  const handleLogout = async () => {
+    await authService.logout();
+    alert("You have logged out.");
+    history.push("/cars");
+  };
+
   return (
     <div className="nav">
       <ul className="nav-list">
@@ -14,8 +24,8 @@ export default function Navbar() {
         </li>
         <li className="nav-item">
           {token ? (
-            <Link to="/logout">Logout</Link>
-            ) : (
+            <button onClick={handleLogout}>Logout</button>
+          ) : (
             <Link to="/login">Login</Link>
           )}
         </li>
