@@ -4,13 +4,16 @@ import AppCars from "./pages/AppCars";
 import AddCar from "./pages/AddCar";
 import AppLogin from "./pages/AppLogin";
 import AppRegister from "./pages/AppRegister";
-
+import AppSingleCar from "./pages/AppSingleCar";
 
 export default function Router() {
   return (
     <Switch>
-      <Route path="/cars">
+      <Route exact path="/cars">
         <AppCars />
+      </Route>
+      <Route path="/cars/:id">
+        <AppSingleCar />
       </Route>
       <Route path="/add">
         <AddCar />

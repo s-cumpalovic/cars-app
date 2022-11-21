@@ -24,13 +24,13 @@ export default function AppCars() {
       setCars([...cars.filter((car) => car.id !== id)]);
     }
   };
-
   return (
     <div>
       <h2>Cars showcase:</h2>
       {cars &&
         cars.map((car) => (
-            <div key={car.id}>
+          <div key={car.id}>
+            <Link to={`/cars/${car.id}`}>
               <SingleCar
                 key={car.id}
                 brand={car.brand}
@@ -41,13 +41,12 @@ export default function AppCars() {
                 engine={car.engine}
                 number_of_doors={car.number_of_doors}
               />
-              <Link to={`/edit/${car.id}`}>
-                <button className="btn btn-warning">Edit</button>
-              </Link>
-              <DeleteButton
-                onClickDeleteButton={() => handleDeleteCar(car.id)}
-              />
-            </div>
+            </Link>
+            <Link to={`/edit/${car.id}`}>
+              <button className="btn btn-warning">Edit</button>
+            </Link>
+            <DeleteButton onClickDeleteButton={() => handleDeleteCar(car.id)} />
+          </div>
         ))}
     </div>
   );
