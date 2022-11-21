@@ -1,4 +1,6 @@
 import { httpService } from "./HttpService";
+import LoginErrors from "./ErrorHandlers/LoginErrors";
+import RegisterError from "./ErrorHandlers/RegisterError";
 
 class AuthService {
   constructor() {
@@ -29,7 +31,9 @@ class AuthService {
   }
 
   async login(data) {
-    let response = await httpService.axiosObj.post("/login", data);
+    let response = await httpService.axiosObj
+      .post("/login", data)
+      .catch((error) => LoginErrors(error));
     if (response.data) {
       localStorage.setItem("token", response.data.authorisation.token);
       this.setAxiosAuthorizationHeader(response.data.authorisation.token);
@@ -40,8 +44,20 @@ class AuthService {
   async logout() {
     let response = await httpService.axiosObj.post("/logout");
     if (response.data) {
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
       return response.data;
+    }
+  }
+
+  async register(data) {
+    let response = await httpService.axiosObj
+      .post("/register", data)
+      .catch((error) => RegisterError(error));
+    if (response.data) {
+      localStorage.removeItem("token");
+      localStorage.setItem("token", response.data.authorisation.token);
+      this.setAxiosAuthorizationHeader(response.data.authorisation.token);
+      return response;
     }
   }
 }

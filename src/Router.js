@@ -3,6 +3,8 @@ import React from "react";
 import AppCars from "./pages/AppCars";
 import AddCar from "./pages/AddCar";
 import AppLogin from "./pages/AppLogin";
+import AppRegister from "./pages/AppRegister";
+
 
 export default function Router() {
   return (
@@ -15,6 +17,9 @@ export default function Router() {
       </Route>
       <Route path="/login">
         <AppLogin />
+      </Route>
+      <Route path="/register">
+        <AppRegister />
       </Route>
       <Route path="/edit/:id">
         <AddCar />
