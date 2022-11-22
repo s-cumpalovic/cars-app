@@ -5,12 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AlertProvider } from "react-alert-with-buttons";
-
+import { AuthProvider } from "./hooks/useAuth";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <AlertProvider>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </AlertProvider>
   </BrowserRouter>
 );

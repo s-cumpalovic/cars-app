@@ -1,32 +1,45 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import React from "react";
 import AppCars from "./pages/AppCars";
 import AddCar from "./pages/AddCar";
 import AppLogin from "./pages/AppLogin";
 import AppRegister from "./pages/AppRegister";
 import AppSingleCar from "./pages/AppSingleCar";
+import useAuth from "./hooks/useAuth";
+
+const AuthRoute = ({ children, ...rest }) => {
+  const { user } = useAuth();
+
+  return <Route {...rest}>{user ? children : <Redirect to="/login" />}</Route>;
+};
+
+const GuestRoute = ({ children, ...rest }) => {
+  const { user } = useAuth();
+
+  return <Route {...rest}>{user ? <Redirect to="/cars" /> : children}</Route>;
+};
 
 export default function Router() {
   return (
     <Switch>
-      <Route exact path="/cars">
-        <AppCars />
-      </Route>
-      <Route path="/cars/:id">
-        <AppSingleCar />
-      </Route>
-      <Route path="/add">
-        <AddCar />
-      </Route>
-      <Route path="/login">
+      <GuestRoute path="/login">
         <AppLogin />
-      </Route>
-      <Route path="/register">
+      </GuestRoute>
+      <GuestRoute path="/register">
         <AppRegister />
-      </Route>
-      <Route path="/edit/:id">
+      </GuestRoute>
+      <AuthRoute exact path="/cars">
+        <AppCars />
+      </AuthRoute>
+      <AuthRoute path="/cars/:id">
+        <AppSingleCar />
+      </AuthRoute>
+      <AuthRoute path="/add">
         <AddCar />
-      </Route>
+      </AuthRoute>
+      <AuthRoute path="/edit/:id">
+        <AddCar />
+      </AuthRoute>
     </Switch>
   );
 }

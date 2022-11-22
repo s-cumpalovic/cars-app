@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import CarsService from "../services/CarsService";
 import { Link } from "react-router-dom";
-import SingleCar from "../components/SingleCar";
-import DeleteButton from "../components/DeleteButton";
+import SingleCar from "../components/Cars/SingleCar";
+import DeleteButton from "../components/Buttons/DeleteButton";
 
 export default function AppCars() {
   const [cars, setCars] = useState();

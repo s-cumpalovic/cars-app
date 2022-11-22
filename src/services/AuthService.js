@@ -31,13 +31,15 @@ class AuthService {
   }
 
   async login(data) {
-    let response = await httpService.axiosObj
-      .post("/login", data)
-      .catch((error) => LoginErrors(error));
-    if (response.data) {
-      localStorage.setItem("token", response.data.authorisation.token);
-      this.setAxiosAuthorizationHeader(response.data.authorisation.token);
-      return response;
+    try {
+      let response = await httpService.axiosObj.post("/login", data);
+      if (response.data) {
+        localStorage.setItem("token", response.data.authorisation.token);
+        this.setAxiosAuthorizationHeader(response.data.authorisation.token);
+        return response;
+      }
+    } catch (error) {
+      return LoginErrors(error);
     }
   }
 
@@ -45,20 +47,33 @@ class AuthService {
     let response = await httpService.axiosObj.post("/logout");
     if (response.data) {
       localStorage.removeItem("token");
-      return response.data;
+      // this.setAxiosAuthorizationHeader(null);
+      console.log(response.data);
+    }
+  }
+  async register(data) {
+    try {
+      let response = await httpService.axiosObj.post("/register", data);
+      if (response.data) {
+        localStorage.removeItem("token");
+        localStorage.setItem("token", response.data.authorisation.token);
+        this.setAxiosAuthorizationHeader(response.data.authorisation.token);
+        return response;
+      }
+    } catch (error) {
+      return RegisterError(error);
     }
   }
 
-  async register(data) {
-    let response = await httpService.axiosObj
-      .post("/register", data)
-      .catch((error) => RegisterError(error));
-    if (response.data) {
-      localStorage.removeItem("token");
-      localStorage.setItem("token", response.data.authorisation.token);
-      this.setAxiosAuthorizationHeader(response.data.authorisation.token);
-      return response;
-    }
+  async refresh() {
+    try {
+      const response = await this.axiosObj.post("/refresh");
+      if (response.data) {
+        localStorage.setItem("token", response.data.authorisation.token);
+        this.setAxiosAuthorizationHeader(response.data.authorisation.token);
+      }
+      return response.data;
+    } catch (error) {}
   }
 }
 

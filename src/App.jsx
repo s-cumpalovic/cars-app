@@ -1,12 +1,14 @@
-import './App.css';
-import Navbar from './components/Navbar';
-import Router from './Router';
+import "./App.css";
+import Navbar from "./components/Navbar/Navbar";
+import Router from "./Router";
 
 function App() {
-  return<div>
-    <Navbar />
-    <Router />
-  </div>
+  return (
+    <div>
+      <Navbar />
+      <Router />
+    </div>
+  );
 }
 
 export default App;

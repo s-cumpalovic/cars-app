@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SingleCar from "../components/SingleCar";
+import SingleCar from "../components/Cars/SingleCar";
 import CarsService from "../services/CarsService";
 import { useParams } from "react-router-dom";
 export default function AppSingleCar() {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { RadioButton } from "./RadioButton";
+import { RadioButton } from "../Buttons/RadioButton";
 
 function generateArrayOfYears() {
   var max = new Date().getFullYear();

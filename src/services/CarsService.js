@@ -5,44 +5,50 @@ class CarsService {
   constructor() {
     this.axiosObj = httpService.axiosObj;
   }
-  async getAll() {
-    const response = await this.axiosObj
-      .get("/cars")
-      .catch((error) => CarsErrors(error));
 
-    return response;
+  async getAll() {
+    try {
+      const response = await this.axiosObj.get("/cars");
+      return response;
+    } catch (error) {
+      return CarsErrors(error);
+    }
   }
 
   async create(obj) {
-    const response = await this.axiosObj
-      .post("/cars", obj)
-      .catch((error) => CarsErrors(error));
-
-    return response;
+    try {
+      const response = await this.axiosObj.post("/cars", obj);
+      return response;
+    } catch (error) {
+      return CarsErrors(error);
+    }
   }
 
   async get(id) {
-    const response = await this.axiosObj
-      .get(`/cars/${id}`)
-      .catch((error) => CarsErrors(error));
-
-    return response;
+    try {
+      const response = await this.axiosObj.get(`/cars/${id}`);
+      return response;
+    } catch (error) {
+      return CarsErrors(error);
+    }
   }
 
   async edit(id, car) {
-    const response = await this.axiosObj
-      .put(`/cars/${id}`, car)
-      .catch((error) => CarsErrors(error));
-
-    return response;
+    try {
+      const response = await this.axiosObj.put(`/cars/${id}`, car);
+      return response;
+    } catch (error) {
+      return CarsErrors(error);
+    }
   }
 
   async delete(id) {
-    const response = await this.axiosObj
-      .delete(`/cars/${id}`)
-      .catch((error) => CarsErrors(error));
-
-    return response;
+    try {
+      const response = await this.axiosObj.delete(`/cars/${id}`);
+      return response;
+    } catch (error) {
+      return CarsErrors(error);
+    }
   }
 }
 

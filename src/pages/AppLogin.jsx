@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-import LoginForm from "../components/LoginForm/LoginForm";
-import { authService } from "../services/AuthService";
+import LoginForm from "../components/Forms/LoginForm";
 import { useHistory } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function AppLogin() {
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [loginUser, setLoginUser] = useState({ email: "", password: "" });
   const history = useHistory();
-
-  // const token = authService.getToken();
-  // console.log(token);
+  const { login } = useAuth();
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    const response = await authService.login(user);
-    if(response.status === 200) {
-      alert(response.data.status);
-      history.push("/cars");
-    }
+    const response = await login(loginUser);
+    alert(response.data.status);
+    history.push("/cars");
   };
-  return <LoginForm handleOnLogin={handleSubmitForm} user={user} setUser={setUser} />;
+
+  
+  return (
+    <LoginForm
+      handleOnLogin={handleSubmitForm}
+      user={loginUser}
+      setUser={setLoginUser}
+    />
+  );
 }
